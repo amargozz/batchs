@@ -52,7 +52,7 @@ for /f "usebackq delims=" %%i in (`dsquery computer -name %prefix%*`) do (
                 )
             )
         ) else (
-            echo !computer! Target does not exist
+            echo     !computer! Target does not exist
         )
 
     )
