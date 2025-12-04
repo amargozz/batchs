@@ -1,12 +1,16 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem Prefijo se refiere al los primeros caracteres de los equipos a buscar en AD
+    ::PREFIX is FIRST LETTERS IN COMMON NAME
 set "prefix=PREFIX"
-set "activeCount=0"
-set "origen=\\SERVER\SOURCE\FOLDER"
+set "source=\\SERVER\SOURCE\FOLDER"
 
-echo Buscando "%prefix%" en AD...
+set "activeCount=0"
+
+echo   SEARCHING NODES WITH PREFIX: %prefix%
+echo ==================================================
+echo.
+pause
 
 for /f "tokens=*" %%i in ('dsquery computer -name %prefix%*') do (
     set "dn=%%i"
@@ -18,19 +22,18 @@ for /f "tokens=*" %%i in ('dsquery computer -name %prefix%*') do (
         if !errorlevel! == 0 (
             set /a activeCount+=1
 
-            rem Definir ruta destino
-            set "destino=\\!computer!\C$\Users\Public\Desktop\PUBLIC_FOLDER_NAME"
+            ::TARGET FULL PATH
+            set "target=\\!computer!\C$\Users\Public\Desktop\PUBLIC_FOLDER_NAME"
 
             rem Crear carpeta destino si no existe
-            echo Verificando carpeta destino en !computer!...
             if not exist "!destino!" (
-                echo La carpeta no existe. Creando...
-                mkdir "!destino!"
+                echo !computer! - folder does not exist, creating...
+                mkdir "!target!"
             )
 
             rem Copiar archivos
             echo Copiando accesos a !computer!...
-            xcopy "%origen%\*" "!destino!\" /E /Y /I
+            xcopy "%source%\*" "!target!\" /E /Y /I
         )
     )
 )
@@ -41,3 +44,4 @@ echo Total de equipos activos procesados: %activeCount%
 endlocal
 
 pause
+
