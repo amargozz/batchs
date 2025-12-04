@@ -37,7 +37,7 @@ for /f "usebackq delims=" %%i in (`dsquery computer -name %prefix%*`) do (
 
         set /a activeCount+=1
         :: HERE THE TARGET FULL PATH
-        set "target=\\!computer!\C$\Users\Public\Desktop\%dir_targetr%"
+        set "target=\\!computer!\C$\Users\Public\Desktop\%dir_target%"
 
         if exist "!target!" (
             if "%dryRun%"=="1" (
