@@ -2,8 +2,8 @@
 setlocal enabledelayedexpansion
 
 ::PREFIX is FIRST LETTERS IN COMMON NAME
-set "prefix=POLOWKSLF5RAHCH"
-set "source=\\polofpsp0001\IT\Free\Shortcuts"
+set "prefix=PREFIX"
+set "source=\\server\source\folder"
 
 set "activeCount=0"
 
@@ -30,7 +30,7 @@ for /f "tokens=*" %%i in ('dsquery computer -name %prefix%*') do (
 		echo [OK ] !computer! - active
 
         ::TARGET FULL PATH
-        set "target=\\!computer!\C$\Users\Public\Desktop\Accesos"
+        set "target=\\!computer!\C$\Users\Public\Desktop\TARGET"
 
         ::CREATE FOLDER IF MISSING
         if not exist "!target!" (
@@ -49,5 +49,6 @@ echo Total completed: %activeCount%
 
 endlocal
 pause
+
 
 
