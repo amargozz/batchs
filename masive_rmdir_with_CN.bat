@@ -1,6 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
+    :: SET PARAMETERS (dryRun: 0=real, 1=simulation)
 set "prefix=PREFIX"
 set "publicFolder=FOLDER_NAME"
 set "dryRun=1"
@@ -10,6 +11,7 @@ set "deletedCount=0"
 set "totalCount=0"
 
 echo   SEARCHING NODES WITH PREFIX: %prefix%
+echo   TARGET DIRECTORY: %publicFolder%
 echo   DRY RUN: %dryRun% (0 real, 1 simulation)
 echo ==================================================
 echo.
@@ -50,7 +52,7 @@ for /f "usebackq delims=" %%i in (`dsquery computer -name %prefix%*`) do (
                 )
             )
         ) else (
-            echo !computer! Target does not exist.
+            echo !computer! Target does not exist
         )
 
     )
@@ -61,7 +63,7 @@ echo ==================================================
 echo Total nodes: %totalCount%
 echo Online: %activeCount%
 if "%dryRun%"=="1" (
-    echo DRY RUN: Nothing has been removed
+    echo DRY RUN: Relax, nothing has been removed
 ) else (
     echo Targets removed: %deletedCount%
 )
