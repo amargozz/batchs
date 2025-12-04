@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 
     :: SET PARAMETERS (dryRun: 0=real, 1=simulation)
 set "prefix=PREFIX"
-set "publicFolder=FOLDER_NAME"
+set "dir_target=FOLDER_NAME"
 set "dryRun=1"
 
 set "activeCount=0"
@@ -11,7 +11,7 @@ set "deletedCount=0"
 set "totalCount=0"
 
 echo   SEARCHING NODES WITH PREFIX: %prefix%
-echo   TARGET DIRECTORY: %publicFolder%
+echo   TARGET DIRECTORY: %dir_target%
 echo   DRY RUN: %dryRun% (0 real, 1 simulation)
 echo ==================================================
 echo.
@@ -37,7 +37,7 @@ for /f "usebackq delims=" %%i in (`dsquery computer -name %prefix%*`) do (
 
         set /a activeCount+=1
         :: HERE THE TARGET FULL PATH
-        set "target=\\!computer!\C$\Users\Public\Desktop\%publicFolder%"
+        set "target=\\!computer!\C$\Users\Public\Desktop\%dir_targetr%"
 
         if exist "!target!" (
             if "%dryRun%"=="1" (
