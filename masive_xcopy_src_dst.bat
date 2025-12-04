@@ -27,7 +27,6 @@ for /f "tokens=*" %%i in ('dsquery computer -name %prefix%*') do (
     ping -n 1 !computer! | find "TTL=" >nul
     if !errorlevel! == 0 (
         set /a activeCount+=1
-		echo [OK ] !computer! - active
 
         ::TARGET FULL PATH
         set "target=\\!computer!\C$\Users\Public\Desktop\TARGET"
@@ -39,16 +38,18 @@ for /f "tokens=*" %%i in ('dsquery computer -name %prefix%*') do (
         )
 
         ::COPY FILES
-        echo [OK ] !computer! - Copying files...
+        echo [OK] !computer! - Copying files...
         xcopy "%source%\*" "!target!\" /E /Y /I >nul
     )
 )
 
 echo.
+echo ==================================================
 echo Total completed: %activeCount%
 
 endlocal
 pause
+
 
 
 
